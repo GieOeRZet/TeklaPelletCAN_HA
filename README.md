@@ -3,9 +3,7 @@
 Integracja Home Assistant (HACS) dla urządzenia TeklaPelletCAN – odczyt i zapis parametrów kotła pelletowego
 Tekla/Estyma po sieci lokalnej. Wykrywa urządzenie automatycznie (zeroconf) albo po podaniu adresu IP.
 
-Ten plik jest publikowany automatycznie z głównego repozytorium rozwojowego:
-[GieOeRZet/TeklaPelletCAN](https://github.com/GieOeRZet/TeklaPelletCAN) — tam też zgłaszaj
-problemy/propozycje i tam trwa rozwój.
+Współpracuje z modułem TeklaPelletCAN (urządzenie podłączane do magistrali CAN kotła) i jego oprogramowaniem.
 
 ## Instalacja (HACS)
 
