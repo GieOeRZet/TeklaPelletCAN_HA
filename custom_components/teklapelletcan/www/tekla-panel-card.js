@@ -42,6 +42,50 @@ const ROLE_KEY = {
   fan_mod_1: 'dmuchawa_modulacja_20', fan_mod_2: 'dmuchawa_modulacja_40', fan_mod_3: 'dmuchawa_modulacja_60', fan_mod_4: 'dmuchawa_modulacja_80', fan_mod_5: 'dmuchawa_modulacja_100',
   stats: 'statystyki_kotla', mirror: 'tryb_mirror',
   alarm: 'alarm_aktywny', last_alarm: 'ostatni_alarm', alarm_start: 'alarm_poczatek', alarm_end: 'alarm_koniec', can_ok: 'can_ok', confirm: 'potwierdz_alarm',
+  palnik_p1: 'palnik_nastawy_serwisowe_poziom_1', palnik_p2: 'palnik_nastawy_serwisowe_poziom_2',
+  co1_p0: 'co1_konfiguracja_krzywej_pogodowej_poziom_0', co1_p1: 'co1_konfiguracja_krzywej_pogodowej_poziom_1',
+  kociol_p0: 'kociol_konfiguracja_poziom_0', kociol_p1: 'kociol_konfiguracja_poziom_1', kociol_p2: 'kociol_konfiguracja_poziom_2',
+  palnik_krzywe: 'palnik_krzywe_dmuchawy_i_spalin_poziom_1',
+  cwu_p0: 'cwu_konfiguracja_poziom_0', cwu_p1: 'cwu_konfiguracja_poziom_1',
+  alarm_p1: 'alarmy_ustawienia_poziom_1',
+};
+// Role skonsolidowane w grupy (patrz AttrGroup w firmware/engine.cpp): encja osobna nie istnieje juz w HA,
+// wartosc jest atrybutem encji grupy (klucz atrybutu = nazwa roli, jak w tej mapie). _s() nizej czyta ja
+// jako "sztuczny" stan {state: ...}, wiec _v/_on/_t dzialaja bez zmian - jeden fallback dla wszystkich grup.
+// wartosc: [rola encji grupy, klucz atrybutu (id punktu z rejestry/punkty.csv - nie zawsze rowny roli karty)]
+const GROUP_OF = {
+  p_prefeed: ['palnik_p1', 'p_prefeed'], p_feed_max: ['palnik_p1', 'p_feed_max'], p_photo: ['palnik_p1', 'p_photo'],
+  p_blow_ign: ['palnik_p1', 'p_blow_ign'], p_blow_glow: ['palnik_p1', 'p_blow_glow'], p_blow_stop: ['palnik_p1', 'p_blow_stop'],
+  p_glow_time: ['palnik_p1', 'p_glow_time'], p_glow_fuel: ['palnik_p1', 'p_glow_fuel'], p_stop_time: ['palnik_p1', 'p_stop_time'],
+  p_lambda: ['palnik_p1', 'p_lambda'], p_o2_30: ['palnik_p1', 'p_o2_30'], p_o2_100: ['palnik_p1', 'p_o2_100'],
+  p_cleans: ['palnik_p1', 'p_cleans'], p_clean_gap: ['palnik_p1', 'p_clean_gap'], p_pause_time: ['palnik_p1', 'p_pause_time'],
+  p_pause_power: ['palnik_p1', 'p_pause_power'], p_pause_blow: ['palnik_p1', 'p_pause_blow'],
+  p_inertia: ['palnik_p2', 'p_inertia'], p_grate_time: ['palnik_p2', 'p_grate_time'], p_burner_feed: ['palnik_p2', 'p_burner_feed'],
+  p_feeder_period: ['palnik_p2', 'p_feeder_period'], p_min_rpm: ['palnik_p2', 'p_min_rpm'],
+  co_calib: ['co1_p0', 'co1_calib'], co_cur_0: ['co1_p0', 'co1_curve_0'], co_cur_10: ['co1_p0', 'co1_curve_10'],
+  co_cur_m20: ['co1_p0', 'co1_curve_m20'], co_hyst: ['co1_p0', 'co1_hyst'], co_mode_s: ['co1_p0', 'co1_mode'],
+  co_co_sensor: ['co1_p1', 'co1_co_sensor'], co_const_pump: ['co1_p1', 'co1_const_pump'], co_corr: ['co1_p1', 'co1_corr'],
+  co_lower: ['co1_p1', 'co1_lower'], co_mixer_time: ['co1_p1', 'co1_mixer_time'], co_out_comf: ['co1_p1', 'co1_out_comf'],
+  co_out_eco: ['co1_p1', 'co1_out_eco'], co_pump_min: ['co1_p1', 'co1_pump_min'], co_ret_protect: ['co1_p1', 'co1_ret_protect'],
+  co_room: ['co1_p1', 'co1_room_sensor'], co_source: ['co1_p1', 'co1_source'], co_src_inc: ['co1_p1', 'co1_src_inc'],
+  co_tmax: ['co1_p1', 'co1_tmax'],
+  air_corr: ['kociol_p0', 'air_corr'], power_min: ['kociol_p0', 'power_min'], power_max: ['kociol_p0', 'power_max'],
+  fuel_heat: ['kociol_p0', 'fuel_heat'], fuel_test: ['kociol_p0', 'fuel_test'], boiler_hyst_on: ['kociol_p0', 'boiler_hyst_on'],
+  boiler_hyst_off: ['kociol_p0', 'boiler_hyst_off'],
+  boiler_mixer_time: ['kociol_p1', 'boiler_mixer_time'], boiler_pump_min: ['kociol_p1', 'boiler_pump_min'],
+  boiler_ret_min: ['kociol_p1', 'boiler_ret_min'], boiler_fuel_reserve: ['kociol_p1', 'boil_fuel_reserve'],
+  boiler_pump_run: ['kociol_p1', 'boil_pump_run'], predose_g: ['kociol_p1', 'k_predose_g'], egt_min: ['kociol_p1', 'k_egt_min'],
+  egt_max: ['kociol_p1', 'k_egt_max'], exch_int: ['kociol_p1', 'k_exch_int'],
+  nominal_kw: ['kociol_p2', 'k_nominal'],
+  fan_mod_1: ['palnik_krzywe', 'fan_mod_1'], fan_mod_2: ['palnik_krzywe', 'fan_mod_2'], fan_mod_3: ['palnik_krzywe', 'fan_mod_3'],
+  fan_mod_4: ['palnik_krzywe', 'fan_mod_4'], fan_mod_5: ['palnik_krzywe', 'fan_mod_5'],
+  exh_c1: ['palnik_krzywe', 'exh_c1'], exh_c2: ['palnik_krzywe', 'exh_c2'], exh_c3: ['palnik_krzywe', 'exh_c3'],
+  exh_c4: ['palnik_krzywe', 'exh_c4'], exh_c5: ['palnik_krzywe', 'exh_c5'],
+  cwu_hyst: ['cwu_p0', 'cwu_hyst'], cwu_boost: ['cwu_p0', 'cwu_boost'], cwu_prio: ['cwu_p0', 'cwu_prio'],
+  legion: ['cwu_p0', 'cwu_legion'],
+  cwu_src: ['cwu_p1', 'cwu_src'], cwu_src_inc: ['cwu_p1', 'cwu_src_inc'], cwu_delta: ['cwu_p1', 'cwu_delta'],
+  cwu_tmax: ['cwu_p1', 'cwu_tmax'],
+  alarm_snd: ['alarm_p1', 'alarm_snd'], alarm_sil_from: ['alarm_p1', 'alarm_sil_from'], alarm_sil_to: ['alarm_p1', 'alarm_sil_to'],
 };
 const SCREEN_OPTS = [
   ['main', 'Ekran główny'], ['heat', 'Ogrzewanie'], ['water', 'Woda użytkowa'], ['burn', 'Palnik'], ['quick', 'Szybkie ustawienia (okno)'], ['fuel', 'Paliwo (okno)'],
@@ -298,7 +342,16 @@ class TeklaPanelCard extends HTMLElement {
     this._render(true);
   }
   _feeding() { return !!this._ft && Date.now() - this._ft.dec < 15000; }
-  _s(k) { return this._hass && this.E[k] && this._hass.states[this.E[k]]; }
+  _s(k) {
+    const s = this._hass && this.E[k] && this._hass.states[this.E[k]];
+    if (s) return s;
+    const g = GROUP_OF[k];
+    if (g && this._hass && this.E[g[0]]) {
+      const gs = this._hass.states[this.E[g[0]]];
+      if (gs && gs.attributes && gs.attributes[g[1]] !== undefined) return { state: gs.attributes[g[1]], attributes: {} };
+    }
+    return s;
+  }
   _v(k) { const s = this._s(k); if (!s) return NaN; const n = parseFloat(s.state); return isNaN(n) ? NaN : n; }
   _on(k) { const s = this._s(k); return !!s && s.state === 'on'; }
   // tryb pracy obiegu: Off / Eko / Harmonogram / Komfort (tekst z ESP) -> ikona, podpis, pozycja suwaka
