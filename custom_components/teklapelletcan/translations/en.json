@@ -1,0 +1,65 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "TeklaPelletCAN",
+        "description": "Device IP address (automatic discovery works via mDNS).",
+        "data": {
+          "host": "IP address",
+          "port": "Port"
+        }
+      },
+      "confirm": {
+        "title": "Device found",
+        "description": "Add device {id} ({host})?"
+      },
+      "auth": {
+        "title": "Pairing",
+        "description": "Enter the device password. On first setup you will set it now (min. 4 characters).",
+        "data": {
+          "password": "Device password",
+          "name": "Name (entity prefix)",
+          "password_confirm": "Repeat password (first setup only)"
+        }
+      },
+      "card": {
+        "title": "Lovelace card",
+        "description": "The integration does not force any card on you. Pick which one to add automatically as a dashboard resource (you can change this later in the integration's options) – classic replicates the boiler panel, modern is the Android-app style with the full parameter list.",
+        "data": {
+          "card": "Card"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to the device",
+      "invalid_auth": "Wrong password",
+      "password_mismatch": "Passwords do not match"
+    },
+    "abort": {
+      "already_configured": "This device is already added to this Home Assistant",
+      "cannot_connect": "Cannot connect to the device"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Lovelace card",
+        "description": "Changing this adds any missing resource on the next HA start (removing an already-added card is manual, in Settings → Dashboards → Resources).",
+        "data": {
+          "card": "Card"
+        }
+      }
+    }
+  },
+  "selector": {
+    "card": {
+      "options": {
+        "none": "None",
+        "classic": "Classic (panel replica)",
+        "modern": "Modern (app style)",
+        "both": "Both"
+      }
+    }
+  }
+}
