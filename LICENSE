@@ -1,0 +1,21 @@
+TeklaPelletCAN Non-Commercial License
+Copyright (c) 2026 Roman Gorz (GieOeRZet)
+
+Wolno Ci kopiować, modyfikować i rozpowszechniać kod w tym repozytorium pod warunkami:
+1. Zachowujesz informację o autorze, link do repozytorium i treść tej licencji.
+2. Wersje zmienione oznaczasz jako zmienione i udostępniasz na tej samej licencji.
+3. NIE WOLNO używać tej pracy komercyjnie ani do zarobku (sprzedaż, płatne usługi, instalacje na zlecenie, wbudowanie w
+   produkt lub urządzenie sprzedawane, reklamy) bez uprzedniej pisemnej zgody autora. Użytek osobisty, domowy,
+   edukacyjny i hobbystyczny jest dozwolony.
+
+Niezależność i zgodność: projekt jest niezależny i nieoficjalny. Nie jest związany z firmą Tekla (producentem kotłów) ani
+Estyma (producentem sterowników), nie jest przez nie zatwierdzony ani wspierany. TeklaPelletCAN NIE JEST zamiennikiem
+oryginalnego sterownika kotła – to dodatkowe urządzenie podłączane do magistrali CAN obok istniejącego sterownika, w celu
+odczytu i zapisu parametrów przez Home Assistant. Nazwy Tekla, Estyma oraz wszelkie materiały (grafiki, teksty, wygląd
+panelu) pochodzące od tych producentów są ich własnością; licencja powyżej dotyczy wyłącznie własnego kodu i
+dokumentacji autora.
+
+Gwarancja i odpowiedzialność: oprogramowanie i urządzenie dostarczane są „tak jak jest”, bez żadnej gwarancji. Podłączenie
+do magistrali CAN kotła i zapis parametrów odbywa się na własne ryzyko – może naruszać warunki gwarancji producenta
+i prowadzić do uszkodzenia lub nieprawidłowej pracy kotła/sterownika. Całe ryzyko ponosi użytkownik; autor nie
+odpowiada za żadne szkody.
